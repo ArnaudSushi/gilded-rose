@@ -7,6 +7,20 @@
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>fr.esiea</groupId>
+        <artifactId>gilded-rose</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <configuration>
+          <repoToken>hZM73J9GQwRU55LaDNaVFFwJ82IFP6wiH</repoToken>
+        </configuration>
+      </plugin>
+
+    </plugins>
+  </build>
+
   <groupId>fr.esiea</groupId>
   <artifactId>gilded-rose</artifactId>
   <packaging>jar</packaging>
