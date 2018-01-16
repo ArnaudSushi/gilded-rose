@@ -13,3 +13,8 @@ buildNumber.properties
 
 # Idea
 .idea/
+
+#Eclipse
+.settings/
+.classpath
+.project
