@@ -22,4 +22,22 @@ public class GildedRoseTest {
         gildedRose.updateQuality();
         Assertions.assertThat(defaultItem.quality).as("qualité du produit testé").isEqualTo(9);
     }
+
+    @Test
+    public void UpdateQualityAgedBrieQuality(){
+        Item defaultItem = new Item("Aged Brie", 5, 10);
+        Item[] items = new Item[]{defaultItem};
+        GildedRose gildedRose = new GildedRose(items);
+        gildedRose.updateQuality();
+        Assertions.assertThat(defaultItem.quality).as("qualité de Aged Brie").isEqualTo(11);
+    }
+
+    @Test
+    public void UpdateQualityDefaultSellIn(){
+        Item defaultItem = new Item("azerty", 5, 10);
+        Item[] items = new Item[]{defaultItem};
+        GildedRose gildedRose = new GildedRose(items);
+        gildedRose.updateQuality();
+        Assertions.assertThat(defaultItem.sellIn).as("nombre de jours pour vendre le produit").isEqualTo(4);
+    }
 }
