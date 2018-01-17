@@ -7,11 +7,19 @@ import org.junit.Test;
 public class GildedRoseTest {
 
     @Test
-    public void decayOfObjectQualityByOne() {
-        Item item = new Item("testObject", 5, 10);
-        Item[] items = new Item[]{item};
+    public void creationTest() {
+        Item pawnItem = new Item("basicItem", 10, 10);
+        Item[] items = new Item[]{pawnItem};
+        GildedRose gildedRose = new GildedRose(items);
+        Assertions.assertThat(gildedRose.items).as("Les objets vandable").isEqualTo(items);
+    }
+
+    @Test
+    public void decayOfDefaultObjectQualityByOne() {
+        Item defaultItem = new Item("testObject", 5, 10);
+        Item[] items = new Item[]{defaultItem};
         GildedRose gildedRose = new GildedRose(items);
         gildedRose.updateQuality();
-        Assertions.assertThat(item.quality).as("qualité du produit testé").isEqualTo(9);
+        Assertions.assertThat(defaultItem.quality).as("qualité du produit testé").isEqualTo(9);
     }
 }
