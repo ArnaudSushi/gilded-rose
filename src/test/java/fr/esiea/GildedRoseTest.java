@@ -58,4 +58,42 @@ public class GildedRoseTest {
         gildedRose.updateQuality();
         Assertions.assertThat(defaultItem.sellIn).as("nombre de jours pour vendre Sulfuras, Hand of Ragnaros").isEqualTo(5);
     }
+
+    @Test
+    public void UpdateQualityNegativeSellInPositiveQualityDefault(){
+        Item defaultItem = new Item("azerty", -1, 10);
+        Item[] items = new Item[]{defaultItem};
+        GildedRose gildedRose = new GildedRose(items);
+        gildedRose.updateQuality();
+        Assertions.assertThat(defaultItem.quality).as("qualité de 'azerty' ").isEqualTo(8);
+    }
+
+    @Test
+    public void UpdateQualityNegativeSellInPositiveQualitySulfuras(){
+        Item defaultItem = new Item("Sulfuras, Hand of Ragnaros", -1, 10);
+        Item[] items = new Item[]{defaultItem};
+        GildedRose gildedRose = new GildedRose(items);
+        gildedRose.updateQuality();
+        Assertions.assertThat(defaultItem.quality).as("qualité de Sulfuras ").isEqualTo(10);
+    }
+
+    @Test
+    public void UpdateQualityNegativeSellInLessthan50QualityAgedBrie(){
+        Item defaultItem = new Item("Aged Brie", -1, 40);
+        Item[] items = new Item[]{defaultItem};
+        GildedRose gildedRose = new GildedRose(items);
+        gildedRose.updateQuality();
+        Assertions.assertThat(defaultItem.quality).as("qualité de Aged Brie ").isEqualTo(42);
+    }
+
+    @Test
+    public void UpdateQualityNegativeSellInBackstage(){
+        Item defaultItem = new Item("Backstage passes to a TAFKAL80ETC concert", -1, 10);
+        Item[] items = new Item[]{defaultItem};
+        GildedRose gildedRose = new GildedRose(items);
+        gildedRose.updateQuality();
+        Assertions.assertThat(defaultItem.quality).as("qualité de Backstage ").isEqualTo(0);
+    }
+
+
 }
