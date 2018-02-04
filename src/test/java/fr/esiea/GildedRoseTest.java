@@ -69,6 +69,15 @@ public class GildedRoseTest {
     }
 
     @Test
+    public void UpdateQualityNegativeSellInNegativeQualityDefault(){
+        Item defaultItem = new Item("azerty", -1, -1);
+        Item[] items = new Item[]{defaultItem};
+        GildedRose gildedRose = new GildedRose(items);
+        gildedRose.updateQuality();
+        Assertions.assertThat(defaultItem.quality).as("qualité de 'azerty' ").isEqualTo(-1);
+    }
+
+    @Test
     public void UpdateQualityNegativeSellInPositiveQualitySulfuras(){
         Item defaultItem = new Item("Sulfuras, Hand of Ragnaros", -1, 10);
         Item[] items = new Item[]{defaultItem};
@@ -84,6 +93,15 @@ public class GildedRoseTest {
         GildedRose gildedRose = new GildedRose(items);
         gildedRose.updateQuality();
         Assertions.assertThat(defaultItem.quality).as("qualité de Aged Brie ").isEqualTo(42);
+    }
+
+    @Test
+    public void UpdateQualityNegativeSellInMoreorEqualTo50QualityAgedBrie(){
+        Item defaultItem = new Item("Aged Brie", -1, 50);
+        Item[] items = new Item[]{defaultItem};
+        GildedRose gildedRose = new GildedRose(items);
+        gildedRose.updateQuality();
+        Assertions.assertThat(defaultItem.quality).as("qualité de Aged Brie ").isEqualTo(50);
     }
 
     @Test
