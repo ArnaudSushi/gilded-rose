@@ -1,6 +1,6 @@
 package fr.esiea;
 
-public abstract class Item {
+public class Item {
 
     public String name;
 
@@ -19,5 +19,12 @@ public abstract class Item {
         return this.name + ", " + this.sellIn + ", " + this.quality;
     }
 
-    public abstract void updateQuality();
+    public void updateQuality(){
+        if (quality > 0) quality--;
+        sellIn--;
+        if (sellIn < 0 && quality > 0) quality--;
+
+
+
+    }
 }
