@@ -1,5 +1,7 @@
 package fr.esiea;
 
+import java.util.Objects;
+
 public class Item {
 
     public String name;
@@ -24,7 +26,19 @@ public class Item {
         sellIn--;
         if (sellIn < 0 && quality > 0) quality--;
 
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Item item = (Item) o;
+        return Objects.equals(name, item.name);
+    }
 
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(name);
     }
 }
