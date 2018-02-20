@@ -1,5 +1,7 @@
 package fr.esiea;
 
+import java.util.ArrayList;
+
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Test;
@@ -25,7 +27,8 @@ public class ItemTest {
     @Test
     public void UpdateQualityNegativeSellInPositiveQualityDefault(){
         Item defaultItem = new Item("azerty", -1, 10);
-        Item[] items = new Item[]{defaultItem};
+        ArrayList<Item> items = new ArrayList<>();
+        items.add(defaultItem);
         GildedRose gildedRose = new GildedRose(items);
         gildedRose.updateQuality();
         Assertions.assertThat(defaultItem.quality).as("qualité de 'azerty' ").isEqualTo(8);
@@ -34,7 +37,8 @@ public class ItemTest {
     @Test
     public void UpdateQualityNegativeSellInNegativeQualityDefault(){
         Item defaultItem = new Item("azerty", -1, -1);
-        Item[] items = new Item[]{defaultItem};
+        ArrayList<Item> items = new ArrayList<>();
+        items.add(defaultItem);
         GildedRose gildedRose = new GildedRose(items);
         gildedRose.updateQuality();
         Assertions.assertThat(defaultItem.quality).as("qualité de 'azerty' ").isEqualTo(-1);
@@ -43,7 +47,8 @@ public class ItemTest {
     @Test
     public void UpdateQualityDefaultSellIn(){
         Item defaultItem = new Item("azerty", 5, 10);
-        Item[] items = new Item[]{defaultItem};
+        ArrayList<Item> items = new ArrayList<>();
+        items.add(defaultItem);
         GildedRose gildedRose = new GildedRose(items);
         gildedRose.updateQuality();
         Assertions.assertThat(defaultItem.sellIn).as("nombre de jours pour vendre le produit").isEqualTo(4);
@@ -52,7 +57,8 @@ public class ItemTest {
     @Test
     public void decayOfDefaultObjectQualityByOne() {
         Item defaultItem = new Item("testObject", 5, 10);
-        Item[] items = new Item[]{defaultItem};
+        ArrayList<Item> items = new ArrayList<>();
+        items.add(defaultItem);
         GildedRose gildedRose = new GildedRose(items);
         gildedRose.updateQuality();
         Assertions.assertThat(defaultItem.quality).as("qualité du produit testé").isEqualTo(9);
