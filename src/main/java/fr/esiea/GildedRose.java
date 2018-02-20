@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 class GildedRose {
-    List<Item> items;
+    private List<Item> items;
 
     public GildedRose() {
         items = new ArrayList<Item>();
+    }
+
+    public GildedRose(ArrayList<Item> items) {
+        this.items = items;
     }
 
     public void addAnItem(Item newItem) {
@@ -19,5 +23,9 @@ class GildedRose {
         for (Item listBrowser : items) {
             listBrowser.updateQuality();
         }
+    }
+
+    public List<Item> getItems() {
+        return items;
     }
 }
