@@ -10,12 +10,11 @@ public class AgedBrie extends Item {
         if (quality < 50) {
             quality++;
         }
+
         sellIn--;
 
-        if(sellIn<0){
-            if (quality < 50) {
+        if(sellIn<0 && quality < 50) {
                 quality++;
-            }
         }
     }
 }
