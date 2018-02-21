@@ -1,5 +1,6 @@
 package spring.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.esiea.*;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import persistence.items.HashMapPersistence;
 import persistence.items.NoSuchElementException;
+import persistence.items.NotEnoughElementsException;
 
 
 @SpringBootApplication
@@ -42,18 +44,21 @@ public class SpringWebApp {
     }
 
     @RequestMapping("/buy_object")
-    Item[] buyItem(@RequestParam("type") ItemType type, @RequestParam("name") String name,
-                   @RequestParam("quantity") int quantity, @RequestParam("quality") int quality){
+    List<Item> buyItem(@RequestParam("type") ItemType type, @RequestParam("name") String name,
+                   @RequestParam("quantity") int quantity) throws NotEnoughElementsException {
 
-        Item item = type.build(name, 0, quality);
-        Item items[] = new Item[quantity];
+        Item item = type.build(name, 0, 0);
+        if(database.hasItem(item) < quantity){
+            throw new NotEnoughElementsException("Pas assez d'articles.");
+        }
 
+        List<Item> items = new ArrayList<>();
         for (int i = 0; i < quantity; i++) {
             try {
-                items[i] = database.getItemByName(item);
+                items.add(database.getItemByName(item));
             } catch (NoSuchElementException e) {
-                e.printStackTrace();
-                return items;
+                for(Item item1 : items) database.saveItem(item);
+                throw new NotEnoughElementsException("Pas assez d'articles.");
             }
         }
         return items;

@@ -12,7 +12,7 @@ import java.util.Currency;
 import java.util.List;
 
 public enum ItemType {
-    AGED_BRIE(AgedBrie::new), BACKSTAGE(BackstagePass::new), SULFURAS(Sulfuras::new);
+    AGED_BRIE(AgedBrie::new), BACKSTAGE(BackstagePass::new), SULFURAS(Sulfuras::new), ITEM(Item::new);
 
     private final ItemBuilder builder;
 
@@ -24,7 +24,7 @@ public enum ItemType {
         return builder.build(name, sellIn, quality);
     }
 
-    //Return the values of the enum
+    //Returns the values of the enum in String format
     public static List<String> listTypes(){
         Class cls = ItemType.class;
         List<String> types = new ArrayList<>();

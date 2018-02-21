@@ -34,21 +34,27 @@ public class HashMapPersistence implements ItemPersistence {
             throw new NoSuchElementException("Element not found.");
         }
 
-        Item tempItem;
+        Item tempItem = null;
         for(int i : database.keySet()){
             tempItem = database.get(i);
             if(tempItem.equals(item)){
                 return database.remove(i);
             }
         }
-        return null;
+        return tempItem;
     }
 
     public List<Item> getAllItems() {
         return new ArrayList<>(database.values());
     }
 
-    public boolean hasItem(Item item){
-       return database.containsValue(item);
+    public int hasItem(Item item){
+        int count = 0;
+        for(int i : database.keySet()){
+            if(database.get(i).equals(item)){
+                count++;
+            }
+        }
+        return count;
     }
 }
