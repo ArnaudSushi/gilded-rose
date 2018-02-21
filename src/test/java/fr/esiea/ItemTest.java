@@ -63,4 +63,5 @@ public class ItemTest {
         gildedRose.updateQuality();
         Assertions.assertThat(defaultItem.quality).as("qualité du produit testé").isEqualTo(9);
     }
+
 }

@@ -38,7 +38,8 @@ public class HashMapPersistence implements ItemPersistence {
         for(int i : database.keySet()){
             tempItem = database.get(i);
             if(tempItem.equals(item)){
-                return database.remove(i);
+                tempItem =  database.remove(i);
+                break;
             }
         }
         return tempItem;

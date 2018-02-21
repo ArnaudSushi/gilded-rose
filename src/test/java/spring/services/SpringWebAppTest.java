@@ -7,15 +7,12 @@ import fr.esiea.Sulfuras;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Test;
-import persistence.items.NoSuchElementException;
 import persistence.items.NotEnoughElementsException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
 import static org.assertj.core.api.ThrowableAssert.catchThrowable;
-import static org.junit.Assert.*;
 
 public class SpringWebAppTest {
 
@@ -108,5 +105,6 @@ public class SpringWebAppTest {
         Assertions.assertThat(types).as("Liste des types disponibles").
                 contains("AGED_BRIE","BACKSTAGE","SULFURAS");
     }
+
 
 }
