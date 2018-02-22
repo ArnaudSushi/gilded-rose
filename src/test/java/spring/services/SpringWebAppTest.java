@@ -87,9 +87,7 @@ public class SpringWebAppTest {
         swa.createObject(ItemType.AGED_BRIE,"AgedBrie",2,5,5);
 
         SoftAssertions softly = new SoftAssertions();
-        Throwable thrown = catchThrowable(() -> {
-            swa.buyItem(ItemType.AGED_BRIE, "AgedBrie", 6);
-        });
+        Throwable thrown = catchThrowable(() -> swa.buyItem(ItemType.AGED_BRIE, "AgedBrie", 6));
 
         softly.assertThat(thrown).hasMessageContaining("Pas assez d'articles.");
         softly.assertThat(items).as("Nombre d'éléments").hasSize(0);
@@ -104,6 +102,11 @@ public class SpringWebAppTest {
         List<String> types = swa.listTypes();
         Assertions.assertThat(types).as("Liste des types disponibles").
                 contains("AGED_BRIE","BACKSTAGE","SULFURAS");
+    }
+
+    @Test
+    public void testMain() {
+        SpringWebApp.main(null);
     }
 
 
