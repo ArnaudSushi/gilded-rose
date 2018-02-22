@@ -42,7 +42,8 @@ public class ConcurrentTest {
         Assertions.assertThat(swa.listItems()).as("Elements").hasSize(0);
     }
 
-    //TODO
+    //When two clients start extracting items at the same time but there are not enough for both of them
+    //they should put them back in
     @Test
     public void concurrent_buy_of_same_items_not_enough_stock(){
         SpringWebApp swa = new SpringWebApp();
@@ -73,5 +74,8 @@ public class ConcurrentTest {
             e.printStackTrace();
         }
 
+        Assertions.assertThat(swa.listItems()).as("Elements").hasSize(10);
+
     }
+
 }

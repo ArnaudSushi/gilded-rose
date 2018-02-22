@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.esiea.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,7 @@ import persistence.items.NotEnoughElementsException;
 @SpringBootApplication
 @RestController
 public class SpringWebApp {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SpringWebApp.class);
 
     HashMapPersistence database = new HashMapPersistence();
 
@@ -57,8 +60,9 @@ public class SpringWebApp {
             try {
                 items.add(database.getItemByName(item));
             } catch (NoSuchElementException e) {
+                LOGGER.warn("Warning: someone already took "+item.name+" backing up operation.");
                 for(Item item1 : items) database.saveItem(item);
-                throw new NotEnoughElementsException("Pas assez d'articles.");
+                throw new NotEnoughElementsException("Quelqu'un a déjà pris des items! Veuillez réessayer.");
             }
         }
         return items;

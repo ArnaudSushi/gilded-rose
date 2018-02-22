@@ -24,7 +24,7 @@ public class HashMapPersistence implements ItemPersistence {
     public int saveItem(Item item) {
         int id = sequenceGenerator.incrementAndGet();
         database.put(id, item);
-        LOGGER.info(item + " created with ID: " + id);
+        LOGGER.info(item.name + " created with ID: " + id);
         return id;
     }
 
@@ -39,6 +39,7 @@ public class HashMapPersistence implements ItemPersistence {
             tempItem = database.get(i);
             if(tempItem.equals(item)){
                 tempItem =  database.remove(i);
+                LOGGER.info(item.name + " found and removed with id: " + i);
                 break;
             }
         }
@@ -56,6 +57,7 @@ public class HashMapPersistence implements ItemPersistence {
                 count++;
             }
         }
+        LOGGER.info("Found " + count + " " + item.name);
         return count;
     }
 }
