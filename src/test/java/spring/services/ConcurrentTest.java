@@ -2,6 +2,7 @@ package spring.services;
 
 import fr.esiea.Item;
 import org.assertj.core.api.Assertions;
+import org.junit.Before;
 import org.junit.Test;
 import persistence.items.NotEnoughElementsException;
 
@@ -9,6 +10,11 @@ import java.util.List;
 
 
 public class ConcurrentTest {
+
+    @Before
+    public void clearDB(){
+        SpringWebApp.database.clear();
+    }
 
     @Test
     public void concurrent_buy_of_same_items_enough_stock(){
