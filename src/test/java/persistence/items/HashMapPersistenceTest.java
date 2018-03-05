@@ -4,10 +4,7 @@ import fr.esiea.*;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Test;
-import spring.services.ItemType;
-
 import static org.assertj.core.api.ThrowableAssert.catchThrowable;
-import static org.junit.Assert.*;
 
 public class HashMapPersistenceTest {
 

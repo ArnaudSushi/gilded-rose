@@ -5,9 +5,6 @@ import org.junit.Test;
 import persistence.items.HashMapPersistence;
 import persistence.items.ItemPersistence;
 
-import java.util.ArrayList;
-
-
 public class GildedRoseTest {
 
     @Test

@@ -5,10 +5,7 @@ import fr.esiea.BackstagePass;
 import fr.esiea.Item;
 import fr.esiea.Sulfuras;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.List;
 
 public enum ItemType {

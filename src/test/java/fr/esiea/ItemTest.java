@@ -1,7 +1,5 @@
 package fr.esiea;
 
-import java.util.ArrayList;
-
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Test;

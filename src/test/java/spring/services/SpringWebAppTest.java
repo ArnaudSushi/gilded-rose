@@ -6,6 +6,7 @@ import fr.esiea.Item;
 import fr.esiea.Sulfuras;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
+import org.junit.Before;
 import org.junit.Test;
 import persistence.items.NotEnoughElementsException;
 
@@ -16,11 +17,16 @@ import static org.assertj.core.api.ThrowableAssert.catchThrowable;
 
 public class SpringWebAppTest {
 
+    @Before
+    public void clearDB(){
+        SpringWebApp.database.clear();
+    }
+
     @Test
     public void createSulfuras() {
         SpringWebApp swa = new SpringWebApp();
         swa.createObject(ItemType.SULFURAS,"Sulfuras",2,5,1);
-        Assertions.assertThat(swa.database.hasItem(new Sulfuras("Sulfuras",0,5)))
+        Assertions.assertThat(SpringWebApp.database.hasItem(new Sulfuras("Sulfuras",0,5)))
                 .as("Nombre de Sulfuras en DB").isEqualTo(1);
     }
 
@@ -28,7 +34,7 @@ public class SpringWebAppTest {
     public void createBackstage() {
         SpringWebApp swa = new SpringWebApp();
         swa.createObject(ItemType.BACKSTAGE,"Backstage pass ACDC",2,5,1);
-        Assertions.assertThat(swa.database.hasItem(new BackstagePass("Backstage pass ACDC",0,5)))
+        Assertions.assertThat(SpringWebApp.database.hasItem(new BackstagePass("Backstage pass ACDC",0,5)))
                 .as("Nombre de Backstage pass en DB").isEqualTo(1);
     }
 
@@ -36,7 +42,7 @@ public class SpringWebAppTest {
     public void createBrie() {
         SpringWebApp swa = new SpringWebApp();
         swa.createObject(ItemType.AGED_BRIE,"AgedBrie President",2,5,1);
-        Assertions.assertThat(swa.database.hasItem(new AgedBrie("AgedBrie President",0,5)))
+        Assertions.assertThat(SpringWebApp.database.hasItem(new AgedBrie("AgedBrie President",0,5)))
                 .as("Nombre de AgedBrie President en DB").isEqualTo(1);
     }
 
@@ -44,7 +50,7 @@ public class SpringWebAppTest {
     public void create_generic_item() {
         SpringWebApp swa = new SpringWebApp();
         swa.createObject(ItemType.ITEM,"Quelque chose",2,5,1);
-        Assertions.assertThat(swa.database.hasItem(new Item("Quelque chose",0,5)))
+        Assertions.assertThat(SpringWebApp.database.hasItem(new Item("Quelque chose",0,5)))
                 .as("Nombre de en DB").isEqualTo(1);
     }
 
@@ -57,7 +63,7 @@ public class SpringWebAppTest {
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat(itemList).as("Liste d'éléments").hasOnlyElementsOfType(Sulfuras.class);
         softly.assertThat(itemList).as("Nombre d'éléments").hasSize(5);
-        softly.assertThat(swa.database.hasItem(new Sulfuras("Sulfuras",5,5)))
+        softly.assertThat(SpringWebApp.database.hasItem(new Sulfuras("Sulfuras",5,5)))
                 .as("Nombre de Sulfuras en DB").isEqualTo(5);
         softly.assertAll();
 
@@ -75,7 +81,7 @@ public class SpringWebAppTest {
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat(items).as("Eléments achetés").hasOnlyElementsOfType(AgedBrie.class);
         softly.assertThat(items).as("Nombre d'éléments").hasSize(5);
-        softly.assertThat(swa.database.hasItem(new Item("AgedBrie",5,5)))
+        softly.assertThat(SpringWebApp.database.hasItem(new Item("AgedBrie",5,5)))
                 .as("Nombre de AgedBries").isEqualTo(0);
         softly.assertAll();
     }
@@ -91,7 +97,7 @@ public class SpringWebAppTest {
 
         softly.assertThat(thrown).hasMessageContaining("Pas assez d'articles.");
         softly.assertThat(items).as("Nombre d'éléments").hasSize(0);
-        softly.assertThat(swa.database.hasItem(new AgedBrie("AgedBrie",5,5)))
+        softly.assertThat(SpringWebApp.database.hasItem(new AgedBrie("AgedBrie",5,5)))
                 .as("Nombre de AgedBries").isEqualTo(5);
         softly.assertAll();
     }

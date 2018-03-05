@@ -61,6 +61,11 @@ public class HashMapPersistence implements ItemPersistence {
     }
 
     @Override
+    public void clear() {
+        database.clear();
+    }
+
+    @Override
     public Iterator<Item> iterator() {
         return database.values().iterator();
     }

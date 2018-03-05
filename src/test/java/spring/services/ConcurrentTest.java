@@ -1,9 +1,7 @@
 package spring.services;
 
-import com.sun.media.sound.SoftShortMessage;
 import fr.esiea.Item;
 import org.assertj.core.api.Assertions;
-import org.assertj.core.api.SoftAssertions;
 import org.junit.Test;
 import persistence.items.NotEnoughElementsException;
 

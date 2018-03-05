@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 public class SpringWebApp {
     private static final Logger LOGGER = LoggerFactory.getLogger(SpringWebApp.class);
 
-    private static ItemPersistence database = new HashMapPersistence();
+    static ItemPersistence database = new HashMapPersistence();
 
 
     public static void main(String[] args) {

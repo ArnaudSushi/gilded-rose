@@ -2,8 +2,6 @@ package fr.esiea;
 
 import persistence.items.HashMapPersistence;
 import persistence.items.ItemPersistence;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class GildedRose implements Runnable{
