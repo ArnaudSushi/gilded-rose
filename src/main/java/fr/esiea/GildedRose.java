@@ -1,21 +1,24 @@
 package fr.esiea;
 
+import persistence.items.HashMapPersistence;
+import persistence.items.ItemPersistence;
+
 import java.util.ArrayList;
 import java.util.List;
 
-class GildedRose {
-    private List<Item> items;
+public class GildedRose implements Runnable{
+    private ItemPersistence items;
 
     public GildedRose() {
-        items = new ArrayList<Item>();
+        items = new HashMapPersistence();
     }
 
-    public GildedRose(ArrayList<Item> items) {
+    public GildedRose(ItemPersistence items) {
         this.items = items;
     }
 
     public void addAnItem(Item newItem) {
-        items.add(newItem);
+        items.saveItem(newItem);
     }
 
     public void updateQuality() {
@@ -26,6 +29,11 @@ class GildedRose {
     }
 
     public List<Item> getItems() {
-        return items;
+        return items.getAllItems();
+    }
+
+    @Override
+    public void run() {
+        updateQuality();
     }
 }

@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -17,8 +18,6 @@ public class HashMapPersistence implements ItemPersistence {
 
     private final ConcurrentMap<Integer, Item> database = new ConcurrentHashMap<>();
     private final AtomicInteger sequenceGenerator = new AtomicInteger();
-
-
 
     @Override
     public int saveItem(Item item) {
@@ -59,5 +58,10 @@ public class HashMapPersistence implements ItemPersistence {
         }
         LOGGER.info("Found " + count + " " + item.name);
         return count;
+    }
+
+    @Override
+    public Iterator<Item> iterator() {
+        return database.values().iterator();
     }
 }

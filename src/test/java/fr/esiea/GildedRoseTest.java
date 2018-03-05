@@ -2,6 +2,8 @@ package fr.esiea;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
+import persistence.items.HashMapPersistence;
+import persistence.items.ItemPersistence;
 
 import java.util.ArrayList;
 
@@ -12,30 +14,30 @@ public class GildedRoseTest {
     public void notEmptyCreationTest() {
         Item pawntem = new Item("basic", 10, 10);
 
-        ArrayList<Item> items = new ArrayList<>();
-        items.add(pawntem);
+        ItemPersistence items = new HashMapPersistence();
+        items.saveItem(pawntem);
 
         GildedRose gildedRose = new GildedRose(items);
-        Assertions.assertThat(gildedRose.getItems()).as("Les objets vandables").isEqualTo(items);
+        Assertions.assertThat(gildedRose.getItems()).as("Les objets vandables").isEqualTo(items.getAllItems());
     }
 
     @Test
     public void emptyCreationTest() {
-        ArrayList<Item> items = new ArrayList<>();
+        ItemPersistence items = new HashMapPersistence();
 
         GildedRose gildedRose = new GildedRose();
-        Assertions.assertThat(gildedRose.getItems()).as("La taverne").isEqualTo(items);
+        Assertions.assertThat(gildedRose.getItems()).as("La taverne").isEqualTo(items.getAllItems());
     }
 
     @Test
     public void addItemTest() {
         Item pawnItem = new Item("basicItem", 10, 10);
 
-        ArrayList<Item> items = new ArrayList<Item>();
-        items.add(pawnItem);
+        ItemPersistence items = new HashMapPersistence();
+        items.saveItem(pawnItem);
 
         GildedRose gildedRose = new GildedRose();
         gildedRose.addAnItem(pawnItem);
-        Assertions.assertThat(gildedRose.getItems()).as("Les objets vandable").isEqualTo(items);
+        Assertions.assertThat(gildedRose.getItems()).as("Les objets vendables").isEqualTo(items.getAllItems());
     }
 }

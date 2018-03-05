@@ -12,6 +12,19 @@ import static org.junit.Assert.*;
 public class HashMapPersistenceTest {
 
     @Test
+    public void test_iterator() {
+        ItemPersistence db = new HashMapPersistence();
+        Item item = new Sulfuras("Sulfuras, Hand of Ragnaros", 5, 9);
+        for(int i= 0; i < 10 ; i++) db.saveItem(item);
+        int itemCount = 0;
+        for(Item item1 : db){
+            System.out.println(item1);
+            itemCount++;
+        }
+        Assertions.assertThat(itemCount).as("Nombre de Sulfuras, Hand of Ragnaros dans la DB").isEqualTo(10);
+    }
+
+    @Test
     public void save_sulfuras() {
         HashMapPersistence db = new HashMapPersistence();
         Item item = new Sulfuras("Sulfuras, Hand of Ragnaros", 5, 9);

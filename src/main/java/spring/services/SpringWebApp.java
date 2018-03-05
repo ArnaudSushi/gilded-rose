@@ -12,8 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import persistence.items.HashMapPersistence;
+import persistence.items.ItemPersistence;
 import persistence.items.NoSuchElementException;
 import persistence.items.NotEnoughElementsException;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 
 @SpringBootApplication
@@ -21,11 +26,14 @@ import persistence.items.NotEnoughElementsException;
 public class SpringWebApp {
     private static final Logger LOGGER = LoggerFactory.getLogger(SpringWebApp.class);
 
-    HashMapPersistence database = new HashMapPersistence();
+    private static ItemPersistence database = new HashMapPersistence();
 
 
     public static void main(String[] args) {
         SpringApplication.run(SpringWebApp.class);
+        Runnable updateQualityTask = new GildedRose(database);
+        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
+        scheduledExecutorService.scheduleAtFixedRate(updateQualityTask, 0L, 15L, TimeUnit.MINUTES);
     }
 
     @RequestMapping("/create_object")
