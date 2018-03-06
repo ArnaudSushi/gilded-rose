@@ -36,6 +36,7 @@ public class SpringWebApp {
         scheduledExecutorService.scheduleAtFixedRate(updateQualityTask, 0L, 15L, TimeUnit.MINUTES);
     }
 
+
     @RequestMapping("/create_object")
     int[] createObject(@RequestParam("type") ItemType type, @RequestParam("name") String name,
                        @RequestParam("price") int price, @RequestParam("quality") int quality,
@@ -49,11 +50,19 @@ public class SpringWebApp {
         return id;
     }
 
+    /*
+     *  Get all the items in the DB
+     */
     @RequestMapping("/list_items")
     List<Item> listItems() {
         return database.getAllItems();
     }
 
+    /*
+     * Extracts "quantity" objects with matching type "type" and name "name". Given the DB implementation used, we cannot
+     * get a batch of items, instead we have to verify there are enough and then extract them one by one.
+     * Maybe not the best implementation, but another one nonetheless.
+     */
     @RequestMapping("/buy_object")
     List<Item> buyItem(@RequestParam("type") ItemType type, @RequestParam("name") String name,
                    @RequestParam("quantity") int quantity) throws NotEnoughElementsException {
@@ -68,14 +77,17 @@ public class SpringWebApp {
             try {
                 items.add(database.getItemByName(item));
             } catch (NoSuchElementException e) {
+                // Race case: two clients start extracting elements at the same time because the initial check passed,
+                // but there are not enough items for both. Clients must then put back in those items and retry.
                 LOGGER.warn("Warning: someone already took "+item.name+" backing up operation.");
-                for(Item item1 : items) database.saveItem(item);
+                for(Item item1 : items) database.saveItem(item1);
                 throw new NotEnoughElementsException("Quelqu'un a déjà pris des items! Veuillez réessayer.");
             }
         }
         return items;
     }
 
+    //Get all the possible types of items the database supports
     @RequestMapping("/get_types")
     List<String> listTypes() {
         return ItemType.listTypes();
