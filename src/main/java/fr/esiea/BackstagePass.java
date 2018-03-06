@@ -6,6 +6,10 @@ public class BackstagePass extends Item {
         super(name, sellIn, quality);
     }
 
+    /*
+     * Method to update BackstagePass quality. 
+     * The higher the sellIn is, the slower the quality increases
+     */
     @Override
     public void updateQuality() {
         int qualityEvolution = ((10/sellIn) + 1);

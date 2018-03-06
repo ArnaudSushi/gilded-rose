@@ -2,6 +2,8 @@ package fr.esiea;
 
 import java.util.Objects;
 
+//Class for default or generic items, base for specific items implementation
+
 public class Item {
 
     public String name;
@@ -15,19 +17,26 @@ public class Item {
         this.sellIn = sellIn;
         this.quality = quality;
     }
-
+    
+    
     @Override
     public String toString() {
         return this.name + ", " + this.sellIn + ", " + this.quality;
     }
 
+    /*
+     * Method to update the quality of an item
+     */
     public void updateQuality(){
         if (quality > 0) quality--;
         sellIn--;
         if (sellIn < 0 && quality > 0) quality--;
 
     }
-
+    
+    /*
+     * Two objects are considered equal when their name attribute is equal.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

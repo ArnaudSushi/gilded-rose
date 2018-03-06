@@ -5,6 +5,10 @@ public class AgedBrie extends Item {
         super(name, sellIn, quality);
     }
 
+    /*
+     * Method to update AgedBrie quality. 
+     * The quality is less than or equal to 50
+     */
     @Override
     public void updateQuality() {
     	if (quality < 50) {
